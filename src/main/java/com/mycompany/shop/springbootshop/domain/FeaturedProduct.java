@@ -17,8 +17,6 @@ public class FeaturedProduct {
 	@NotNull
 	@Field("imageName")
 	private String imageName;
-
-	private String imageFeaturedUrl;
 	
 	public String getId() {
 		return id;
@@ -36,11 +34,6 @@ public class FeaturedProduct {
 		this.imageName = imageName;
 	}
 
-	//TODO: url'yi yml'den oku
-	public String getimageFeaturedUrl() {
-		return "http://localhost:8080/api/images/featuredproducts/" + imageName;
-	}
-	
 	public String getProductId() {
 		return productId;
 	}
@@ -77,7 +70,7 @@ public class FeaturedProduct {
 	@Override
 	public String toString() {
 		return "FeaturedProduct [id=" + id + ", productId=" + productId + ", imageName="
-				+ imageName + ", imageFeaturedUrl=" + imageFeaturedUrl + "]";
+				+ imageName + "]";
 	}
 
 }

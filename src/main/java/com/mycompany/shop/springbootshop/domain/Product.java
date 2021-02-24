@@ -38,8 +38,6 @@ public class Product implements Serializable {
 	@Field("imageNames")
 	private String[] imageNames;
 
-	private String[] imageURLs;
-
 	@Field("categories")
 	private Object categories;
 
@@ -114,15 +112,6 @@ public class Product implements Serializable {
 
 	public void setImageNames(String[] imageNames) {
 		this.imageNames = imageNames;
-	}
-	
-	//TODO: url'yi yml'den oku
-	public String[] getImageURLs() {
-		this.imageURLs = new String[this.imageNames.length];
-		for (int i = 0; i < this.imageNames.length; i++) {
-			this.imageURLs[i] = "http://localhost:8080/api/images/products/" + this.imageNames[i];
-		}
-       	return this.imageURLs;
 	}
 
 	public Object getCategories() {

@@ -20,15 +20,40 @@
     <div class="inner">
       <div class="tools">
         <div style="border-color:#0da9ef;" class="search">
-          {{ currency }}
-          <!-- <i (click)="showSearch = true" class="icon-cash"></i> -->
-        </div>
-        <div style="border-color:#0da9ef;" class="search">
-          <i (click)="showSearch = true" class="icon-globe"></i>
-        </div>
-        <div style="border-color:#0da9ef;" class="search">
           <i (click)="showSearch = true" class="icon-search"></i>
         </div>
+        <div style="border-color:#0da9ef;" class="account">
+          <i (click)="showSearch = true" class="icon-moon"></i>
+          <ul class="toolbar-dropdown">
+            <li>
+              <a routerLink="/" href="">USD</a>
+            </li>
+            <li>
+              <a routerLink="/" href="">EUR</a>
+            </li>
+            <li>
+              <a routerLink="/" href="">GBP</a>
+            </li>
+            <li>
+              <a routerLink="/" href="">TRY</a>
+            </li>
+          </ul>
+        </div>
+        <div style="border-color:#0da9ef;" class="account">
+          <i (click)="showSearch = true" class="icon-globe"></i>
+          <ul class="toolbar-dropdown">
+            <li>
+              <a routerLink="/" href="">EN</a>
+            </li>
+            <li>
+              <a routerLink="/" href="">TR</a>
+            </li>
+            <li>
+              <a routerLink="/" href="">ES</a>
+            </li>
+          </ul>
+        </div>
+    
         <div style="border-color:#0da9ef;" class="account">
           <a *ngIf="!user; else whenLoggedIn" routerLink="/register-login"></a>
 

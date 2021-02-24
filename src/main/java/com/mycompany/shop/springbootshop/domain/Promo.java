@@ -25,8 +25,6 @@ public class Promo implements Serializable {
 
 	private String link;
 
-	private String imageUrl;
-
 	public String getId() {
 		return id;
 	}
@@ -65,10 +63,6 @@ public class Promo implements Serializable {
 
 	public void setImageName(String imageName) {
 		this.imageName = imageName;
-	}
-	//TODO: url'yi yml'den oku
-	public String getimageUrl() {
-		return "http://localhost:8080/api/images/promos/" + imageName;
 	}
 
 	public String getButtonText() {
@@ -116,7 +110,7 @@ public class Promo implements Serializable {
 	public String toString() {
 		return "Promo [id=" + id + ", preHeading=" + preHeading + ", heading=" + heading
 				+ ", afterHeading=" + afterHeading + ", imageName=" + imageName + ", buttonText=" + buttonText
-				+ ", link=" + link + ", imageUrl=" + imageUrl + "]";
+				+ ", link=" + link + "]";
 	}
 
 }
