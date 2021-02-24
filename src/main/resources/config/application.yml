@@ -1,0 +1,7 @@
+spring:
+  application:
+    name: spring-boot-shop
+  profiles:
+    active: "dev"
+  main:
+    banner-mode: "off"

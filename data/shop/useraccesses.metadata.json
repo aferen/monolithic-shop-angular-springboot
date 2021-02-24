@@ -1,0 +1,1 @@
+{"indexes":[{"v":{"$numberInt":"2"},"key":{"_id":{"$numberInt":"1"}},"name":"_id_","ns":"shopDB.useraccesses"}],"uuid":"bc116dcffcca4fcc87cee03f14c9e692","collectionName":"useraccesses"}

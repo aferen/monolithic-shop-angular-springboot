@@ -1,0 +1,25 @@
+logging:
+  level:
+    ROOT: INFO
+    '[com.mycompany.shop.springbootshop]': INFO
+
+spring:
+  data:
+    mongodb:
+      uri: ${MONGO_URI} 
+    
+server:
+  port: 8080
+
+app:
+  baseUrl: http://localhost:8080
+  file:
+    images-path: ${IMAGES_PATH}
+  security:
+    authentication:
+      jwt:
+        base64-secret: ${JWT_BASE64_SECRET}
+        token-validity-in-seconds: 86400
+        token-validity-in-seconds-for-remember-me: 2592000
+  
+  
