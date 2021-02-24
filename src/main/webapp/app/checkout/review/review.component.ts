@@ -1,9 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-
 import { AuthenticationService } from '@app/_services';
 import { CheckoutService } from '../shared/checkout.service';
 import { CartService } from '../../cart/shared/cart.service';

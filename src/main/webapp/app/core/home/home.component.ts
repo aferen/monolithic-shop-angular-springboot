@@ -7,7 +7,7 @@ import { MessageService } from '../../messages/message.service';
 import { ProductService } from '../../products/shared/product.service';
 import { ProductsCacheService } from '../../products/shared/products-cache.service';
 import { PromoService } from '../shared/promo.service';
-
+import { SERVER_API_URL } from '@app/app.constants';
 import { Product } from '../../models/product.model';
 import { Promo } from '../../models/promo.model';
 
@@ -18,6 +18,7 @@ import { Promo } from '../../models/promo.model';
 })
 export class HomeComponent implements OnInit, OnDestroy {
   private unsubscribe$ = new Subject();
+  private promoImageUrl = SERVER_API_URL +"api/images/promos/"
   public products: Product[];
   public productsFeatured: any;
   public productsNewArrivals: Product[];
@@ -33,18 +34,6 @@ export class HomeComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-    // this.productService
-    //   .getProducts()
-    //   .pipe(takeUntil(this.unsubscribe$))
-    //   .subscribe((products) => {
-    //     this.products = <Product[]>products;
-    //     // var aa = JSON.stringify(this.products);
-    //     // var bb = JSON.parse(aa);
-    //     // bb.forEach(element => {
-    //     //   console.log(JSON.stringify(element))
-    //     // });
-    //   });
-
     this.productService
       .getFeaturedProducts()
       .pipe(takeUntil(this.unsubscribe$))
@@ -90,6 +79,7 @@ export class HomeComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe((promos) => {
         this.promos = promos;
+        this.promos[0].imageUrl = this.promoImageUrl+this.promos[0].imageName;
       });
   }
 

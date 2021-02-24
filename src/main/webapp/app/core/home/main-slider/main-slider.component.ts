@@ -1,6 +1,5 @@
 import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { NgxSiemaOptions, NgxSiemaService } from 'ngx-siema';
-
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
@@ -14,7 +13,6 @@ export class MainSliderComponent implements OnInit, OnDestroy {
   @Input() public items: any[];
   public currentSlide: number;
   public imagesLoaded: string[];
-
   public options: NgxSiemaOptions = {
     selector: '.siema',
     duration: 200,
@@ -60,6 +58,7 @@ export class MainSliderComponent implements OnInit, OnDestroy {
         });
     }
   }
+  log(val) { console.log(val); }
 
   public goTo(index: number) {
     this.ngxSiemaService
