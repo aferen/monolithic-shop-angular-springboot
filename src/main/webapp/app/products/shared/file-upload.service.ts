@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { HelperService } from '../../shared/helper.service';
+import { SERVER_API_URL } from '@app/app.constants';
 
 @Injectable()
 export class FileUploadService {
@@ -14,7 +14,7 @@ export class FileUploadService {
   // Download URL
   public downloadURL: Observable<string>;
 
-  constructor(private http: HttpClient, private helperService : HelperService) {}
+  constructor(private http: HttpClient) {}
 
   public startUpload(files: Object, url) {
       const formData: FormData = new FormData();
@@ -25,13 +25,13 @@ export class FileUploadService {
       resultArray.forEach((file) => {
         formData.append('file', file, file.name);   
       })
-      return this.http.post(this.helperService.getUrl(url), formData)
+      return this.http.post(SERVER_API_URL+url, formData)
   }
 
   public deleteFile(files: string[], url: string) {
     if (files) {
       return files.map((fileName) => {
-        this.http.delete(this.helperService.getUrl(`${url}/${fileName}`)).subscribe((s) => {
+        this.http.delete(SERVER_API_URL+`${url}/${fileName}`).subscribe((s) => {
         });
       });
      

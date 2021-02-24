@@ -25,7 +25,6 @@ import { CheckoutService } from '../checkout/shared/checkout.service';
 import { AuthenticationService } from '@app/_services';
 import { OffcanvasService } from './shared/offcanvas.service';
 import { PromoService } from './shared/promo.service';
-import { HelperService } from '../shared/helper.service';
 import { UiService } from '../products/shared/ui.service';
 import { ProductsCacheService } from '../products/shared/products-cache.service';
 
@@ -72,7 +71,6 @@ import { throwIfAlreadyLoaded } from './module-import-guard';
         OffcanvasService,
         PromoService,
         UiService,
-        HelperService
     ]
 })
 export class CoreModule {

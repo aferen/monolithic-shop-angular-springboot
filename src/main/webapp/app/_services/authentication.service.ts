@@ -3,9 +3,8 @@ import { HttpClient, HttpErrorResponse, HttpHeaders } from "@angular/common/http
 import { BehaviorSubject, Observable } from "rxjs";
 import { map, catchError } from "rxjs/operators";
 import { MessageService } from '../messages/message.service';
-import { environment } from "@environments/environment";
 import { User, Token } from "@app/models";
-import { HelperService } from "../shared/helper.service";
+import { SERVER_API_URL } from '@app/app.constants';
 
 @Injectable({ providedIn: "root" })
 export class AuthenticationService {
@@ -15,7 +14,6 @@ export class AuthenticationService {
   public currentToken: Observable<Token>;
 
   constructor(private http: HttpClient,
-     private helperService: HelperService,
      private messageService: MessageService
      ) {
     this.currentUserSubject = new BehaviorSubject<User>(
@@ -39,7 +37,7 @@ export class AuthenticationService {
 
   login(email: string, password: string) {
     return this.http
-      .post<any>(this.helperService.getUrl("authenticate"), { email, password })
+      .post<any>(SERVER_API_URL + 'api/authenticate', { email, password })
       .pipe(
         map((data) => {
           if (data.id_token) {
@@ -53,12 +51,12 @@ export class AuthenticationService {
 
 
   signUp(email: string, password: string) {
-    return this.http.post<any>(this.helperService.getUrl("register"), { email, password })
+    return this.http.post<any>(SERVER_API_URL + 'api/register', { email, password })
   }
 
   getAccount() {
     return this.http
-      .get<any>(this.helperService.getUrl("account"), {
+      .get<any>(SERVER_API_URL + 'api/account', {
         headers: {
           Authorization: "Bearer " + this.currentTokenSubject.value,
         },
@@ -82,7 +80,7 @@ export class AuthenticationService {
   }
 
   updateProfile(account: Account) {
-    return this.http.post(this.helperService.getUrl("account"), account)
+    return this.http.post(SERVER_API_URL + 'api/account', account)
     .toPromise()
     .then(() => this.messageService.add('Profile has been updated!'))
     .catch((error) => {
@@ -91,7 +89,7 @@ export class AuthenticationService {
   }
 
   updatePassword(newPassword: string, currentPassword: string) {
-    return this.http.post(this.helperService.getUrl("account/change-password"), { currentPassword, newPassword })
+    return this.http.post(SERVER_API_URL + 'api/account/change-password', { currentPassword, newPassword })
     .toPromise()
       .then(() => this.messageService.add('Password has been updated!'))
       .catch((error) => {

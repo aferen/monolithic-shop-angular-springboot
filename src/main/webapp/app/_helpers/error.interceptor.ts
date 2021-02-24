@@ -5,12 +5,11 @@ import { catchError } from 'rxjs/operators';
 import { AuthenticationService } from '@app/_services';
 import { first } from 'rxjs/operators';
 import { MessageService } from '../messages/message.service';
-import { HelperService } from '../shared/helper.service';
 
 
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {
-    constructor(private authenticationService: AuthenticationService, private messageService: MessageService, private helperService : HelperService) { }
+    constructor(private authenticationService: AuthenticationService, private messageService: MessageService) { }
 
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         return next.handle(request).pipe(catchError(err => {

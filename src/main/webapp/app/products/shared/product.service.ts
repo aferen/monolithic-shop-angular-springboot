@@ -7,10 +7,9 @@ import { AuthenticationService } from '@app/_services';
 import { FileUploadService } from './file-upload.service';
 import { MessageService } from '../../messages/message.service';
 import { ProductRatingService } from './product-rating.service';
-
 import { Product } from '../../models/product.model';
 import { ProductsUrl } from './productsUrl';
-import { HelperService } from '../../shared/helper.service';
+import { SERVER_API_URL } from '@app/app.constants';
 
 
 @Injectable()
@@ -28,7 +27,6 @@ export class ProductService {
     public authService: AuthenticationService,
     private uploadService: FileUploadService,
     private productRatingService: ProductRatingService,
-    private helperService : HelperService
   ) {}
 
   /** Log a ProductService message with the MessageService */
@@ -58,7 +56,7 @@ export class ProductService {
   }
 
   public getProducts(): Observable<Product[]> {
-    return this.http.get<Product[]>(this.helperService.getUrl(this.productsUrl)).pipe(
+    return this.http.get<Product[]>(SERVER_API_URL + this.productsUrl).pipe(
       catchError(this.handleError<Product[]>('getProducts', []))
     );
   }
@@ -69,19 +67,19 @@ export class ProductService {
     limitToFirst: number
   ): Observable<Product[]> {
      const url = `${this.productsQueryUrl}/${byChild}/${equalTo}/${limitToFirst}`;
-     return this.http.get<Product[]>(this.helperService.getUrl(url))
+     return this.http.get<Product[]>(SERVER_API_URL+url)
      .pipe(catchError(this.handleError<Product[]>(`getProductsQuery`)));
   }
 
   public findProducts(term): Observable<any> {
      const url = `${this.productsFindUrl}/${term}`;
-     return this.http.get<Product[]>(this.helperService.getUrl(url))
+     return this.http.get<Product[]>(SERVER_API_URL+url)
     .pipe(catchError(this.handleError<Product[]>(`findProducts`)));
   }
 
   public getProductsByDate(limitToLast: number): Observable<Product[]> {
     const url = `${this.productsDateUrl}/${limitToLast}`;
-     return this.http.get<Product[]>(this.helperService.getUrl(url))
+     return this.http.get<Product[]>(SERVER_API_URL+url)
      .pipe(
       map((arr) => arr.reverse()),
       catchError(this.handleError<Product[]>(`getProductsByDate`))
@@ -90,12 +88,12 @@ export class ProductService {
 
   public getProductsByRating(limitToLast: number): Observable<Product[]> {
     const url = `${this.productsRatingUrl}/${limitToLast}`;
-    return this.http.get<Product[]>(this.helperService.getUrl(url))
+    return this.http.get<Product[]>(SERVER_API_URL+url)
     .pipe(map((arr) => arr.reverse()), catchError(this.handleError<Product[]>(`getProductsByRating`)));
   }
 
   public getFeaturedProducts(): Observable<any[]> {
-     return this.http.get<any[]>(this.helperService.getUrl(this.featuredUrl))
+     return this.http.get<any[]>(SERVER_API_URL+this.featuredUrl)
      .pipe(
       switchMap(
         (actions) => {
@@ -118,7 +116,7 @@ export class ProductService {
 
   public getProduct(id: any): Observable<Product | null> {
     const url = `${this.productsUrl}/${id}`;
-    return this.http.get<Product>(this.helperService.getUrl(url)).pipe(
+    return this.http.get<Product>(SERVER_API_URL+url).pipe(
       tap((result) => {
         if (result) {
           return of(result);
@@ -143,7 +141,7 @@ export class ProductService {
         return data;
       })
       .then((dataWithImagePath) => {
-        return this.http.post<Product>(this.helperService.getUrl(this.productsUrl), data.product)
+        return this.http.post<Product>(SERVER_API_URL+this.productsUrl, data.product)
         .toPromise()
         .then(
           response => { // Success
@@ -181,7 +179,7 @@ export class ProductService {
         return data;
       })
       .then((dataWithImagePath) => {
-        return this.http.put<Product>(this.helperService.getUrl(this.productsUrl), data.product)
+        return this.http.put<Product>(SERVER_API_URL+this.productsUrl, data.product)
         .toPromise()
         .then(
           response => { // Success
@@ -198,7 +196,7 @@ export class ProductService {
   }
 
   private updateProductWithoutNewImage(product: Product, url: string) {
-    const dbOperation = this.http.put<Product>(this.helperService.getUrl(url), product)
+    const dbOperation = this.http.put<Product>(SERVER_API_URL+url, product)
     .toPromise()
     .then(
       response => { // Success
@@ -218,7 +216,7 @@ export class ProductService {
 
     this.uploadService.deleteFile(product.imageNames,"images/product");
 
-    return this.http.delete<Product>(this.helperService.getUrl(url))
+    return this.http.delete<Product>(SERVER_API_URL+url)
       .toPromise()
       .then(() => this.logSuccess('Successfully Deleted ' + product.name))
       .catch((error) => {

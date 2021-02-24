@@ -6,7 +6,7 @@
 export const environment = {
   production: false,
   app: {
-    apiBaseUrl :"http://localhost:8080/api/"//"/api/"
-   /// apiImageUrl: 
+    SERVER_API_URL :"http://localhost:8080/",
+    IMAGE_API_URL :"http://localhost:8080/"
   }
 };

@@ -1,8 +1,8 @@
 export class ProductsUrl {
-  static productsUrl = 'products';
-  static productsQueryUrl = 'products/query';
-  static productsDateUrl = 'products/date';
-  static productsRatingUrl = 'products/rating';
-  static productsFindUrl = 'products/search';
-  static featuredUrl = 'featuredproducts';
+  static productsUrl = 'api/products';
+  static productsQueryUrl = 'api/products/query';
+  static productsDateUrl = 'api/products/date';
+  static productsRatingUrl = 'api/products/rating';
+  static productsFindUrl = 'api/products/search';
+  static featuredUrl = 'api/featuredproducts';
 }
