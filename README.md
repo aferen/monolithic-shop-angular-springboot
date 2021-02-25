@@ -12,7 +12,7 @@ git clone https://github.com/ahmetfurkaneren/monolithic-shop-angular.git
 cd monolithic-shop-angular
 ```
 
-### Install Angular-Cli globally
+### Install Angular-Cli globally 
 
 ```bash
 npm install -g @angular/cli
