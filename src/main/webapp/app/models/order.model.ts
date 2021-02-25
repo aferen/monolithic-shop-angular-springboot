@@ -3,10 +3,10 @@ import { Customer } from './customer.model';
 
 export class Order {
   constructor(
-    public userId : string = '', 
     public customer: Customer = null,
     public items: CartItem[] = null,
     public total: number = null,
+    public userId : string = '', 
     public status: string = '',
     public number: string = '',
     public date: string = new Date().toISOString().split('T')[0],

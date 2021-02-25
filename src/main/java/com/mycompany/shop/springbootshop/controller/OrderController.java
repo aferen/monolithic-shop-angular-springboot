@@ -43,6 +43,15 @@ public class OrderController {
         }
         Order result = orderRepository.save(order);
         return ResponseEntity.created(new URI("/api/orders/" + result.getId())).body(result);
- 
+	}
+
+	@PostMapping("/orders")
+	public ResponseEntity<Order> addOrdersByAnonymousUser(@Valid @RequestBody Order order) throws URISyntaxException {
+		log.debug("REST request to save Order of Anonymous User");
+        if (StringUtils.isNotBlank(order.getId())) {
+            throw new BadRequestException("A new order cannot already have an id","order", "idexists");
+        }
+        Order result = orderRepository.save(order);
+        return ResponseEntity.created(new URI("/api/orders/" + result.getId())).body(result);
 	}
 }

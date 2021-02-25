@@ -41,28 +41,21 @@ export class OrderService {
     };
     const userOrdersUrl = `api/orders/${userId}`;
     const result = this.http.post<Order[]>(SERVER_API_URL + userOrdersUrl, orderWithMetaData)
-    // this.store
-    //   .list(`users/${user}/orders`)
-    //   .push(orderWithMetaData)
-    //   .then((response) => response, (error) => error);
-
     return fromPromise(result);
   }
 
-  // public addAnonymousOrder(order: Order, total: number) {
-  //   const orderWithMetaData = {
-  //     ...order,
-  //     ...this.constructOrderMetaData(order),
-  //     total
-  //   };
+  public addAnonymousOrder(order: Order, total: number) {
+    order.userId = "Anonymous";
+    const orderWithMetaData = {
+      ...order,
+      ...this.constructOrderMetaData(order),
+      total
+    };
 
-  //   const databaseOperation = this.store
-  //     .list('orders')
-  //     .push(orderWithMetaData)
-  //     .then((response) => response, (error) => error);
-
-  //   return fromPromise(databaseOperation);
-  // }
+    const userOrdersUrl = `api/orders`;
+    const result = this.http.post<Order[]>(SERVER_API_URL + userOrdersUrl, orderWithMetaData)
+    return fromPromise(result);
+  }
 
   private constructOrderMetaData(order: Order) {
     return {

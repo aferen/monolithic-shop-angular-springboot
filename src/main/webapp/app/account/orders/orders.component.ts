@@ -27,7 +27,6 @@ export class OrdersComponent implements OnInit, OnDestroy {
     this.ordersSubscription = this.orderService
       .getOrders()
       .subscribe((orders: Order[]) => {
-        console.log(orders)
         if (orders) {
           this.orders = orders.reverse();
         }

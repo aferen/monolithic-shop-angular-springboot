@@ -11,10 +11,16 @@ export class CartService {
 
   constructor(private messageService: MessageService) {
     this.cartItems = [];
+    if (this.getItems === null) {
+      this.updateLocalStoreOrderItems(this.cartItems)
+    } else {
+      this.cartItems = this.getItems();
+    }
   }
 
-  public getItems() {
-    return this.cartItems.slice();
+  public getItems() : CartItem[]{
+    return JSON.parse(localStorage.getItem("currentOrderItems"))
+    //return this.cartItems.slice();
   }
 
   // Get Product ids out of CartItem[] in a new array
@@ -36,6 +42,7 @@ export class CartService {
       this.messageService.add('Added to cart: ' + item.product.name);
     }
     this.itemsChanged.emit(this.cartItems.slice());
+    this.updateLocalStoreOrderItems(this.cartItems.slice())
   }
 
   public addItems(items: CartItem[]) {
@@ -49,6 +56,7 @@ export class CartService {
     this.cartItems.splice(indexToRemove, 1);
     this.itemsChanged.emit(this.cartItems.slice());
     this.messageService.add('Deleted from cart: ' + item.product.name);
+    this.updateLocalStoreOrderItems(this.cartItems.slice())
   }
 
   public updateItemAmount(item: CartItem, newAmount: number) {
@@ -59,12 +67,14 @@ export class CartService {
     });
     this.itemsChanged.emit(this.cartItems.slice());
     this.messageService.add('Updated amount for: ' + item.product.name);
+    this.updateLocalStoreOrderItems(this.cartItems.slice())
   }
 
   public clearCart() {
     this.cartItems = [];
     this.itemsChanged.emit(this.cartItems.slice());
     this.messageService.add('Cleared cart');
+    localStorage.removeItem("currentOrderItems");
   }
 
   public getTotal() {
@@ -73,6 +83,10 @@ export class CartService {
       total += cartItem.amount * cartItem.product.price;
     });
     return total;
+  }
+
+  private updateLocalStoreOrderItems(cartItems: CartItem[]){
+    localStorage.setItem("currentOrderItems", JSON.stringify(cartItems));
   }
 
 }

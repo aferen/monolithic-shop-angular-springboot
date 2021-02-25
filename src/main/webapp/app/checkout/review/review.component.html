@@ -42,7 +42,7 @@
 <div class="row padding-top-1x mt-3">
   <div class="col-sm-6">
     <h5>Shipping to:</h5>
-    <ul class="list-unstyled">
+    <ul *ngIf="customer" class="list-unstyled">
       <li>
         <span class="text-muted">Client:</span>{{customer.firstname}} {{customer.lastname}}</li>
       <li>
