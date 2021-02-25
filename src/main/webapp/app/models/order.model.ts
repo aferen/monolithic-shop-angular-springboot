@@ -3,6 +3,7 @@ import { Customer } from './customer.model';
 
 export class Order {
   constructor(
+    public userId : string = '', 
     public customer: Customer = null,
     public items: CartItem[] = null,
     public total: number = null,

@@ -75,36 +75,36 @@ export class ReviewComponent implements OnInit, OnDestroy {
   }
 
   private submitUserOrder(order, total, userUid) {
-    // this.orderService
-    //   .addUserOrder(order, total, userUid)
-    //   .pipe(takeUntil(this.unsubscribe$))
-    //   .subscribe(
-    //     (response) => {
-    //       this.cartService.clearCart();
-    //       this.checkoutService.resetSteps();
-    //       this.router.navigate(['/order-complete']);
-    //     },
-    //     (error) => {
-    //       this.messageService.addError('Could not submit order, try again.');
-    //     }
-    //   );
+    this.orderService
+      .addUserOrder(order, total, userUid)
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe(
+        (response) => {
+          this.cartService.clearCart();
+          this.checkoutService.resetSteps();
+          this.router.navigate(['/order-complete']);
+        },
+        (error) => {
+          this.messageService.addError('Could not submit order, try again.');
+        }
+      );
   }
 
-  private submitAnonOrder(order, total) {
-    // this.orderService
-    //   .addAnonymousOrder(order, total)
-    //   .pipe(takeUntil(this.unsubscribe$))
-    //   .subscribe(
-    //     (response) => {
-    //       this.cartService.clearCart();
-    //       this.checkoutService.resetSteps();
-    //       this.router.navigate(['/order-complete']);
-    //     },
-    //     (error) => {
-    //       this.messageService.addError('Could not submit order, try again.');
-    //     }
-    //   );
-  }
+  // private submitAnonOrder(order, total) {
+  //   this.orderService
+  //     .addAnonymousOrder(order, total)
+  //     .pipe(takeUntil(this.unsubscribe$))
+  //     .subscribe(
+  //       (response) => {
+  //         this.cartService.clearCart();
+  //         this.checkoutService.resetSteps();
+  //         this.router.navigate(['/order-complete']);
+  //       },
+  //       (error) => {
+  //         this.messageService.addError('Could not submit order, try again.');
+  //       }
+  //     );
+  // }
 
   ngOnDestroy() {
     this.unsubscribe$.next();

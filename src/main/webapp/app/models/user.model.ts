@@ -10,7 +10,6 @@ export class User {
     verified: boolean;
     authorities: [Role];
     password?: string;
-    orders?: object;
     confirmPassword?: string;
     photoURL?: string;
     id_token: string;

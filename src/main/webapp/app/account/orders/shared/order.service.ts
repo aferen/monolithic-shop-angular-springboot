@@ -1,8 +1,10 @@
 import { Injectable, OnInit } from '@angular/core';
 import { Observable ,  of ,  from as fromPromise } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
-
+import { SERVER_API_URL } from "@app/app.constants";
 import { Order } from '../../../models/order.model';
+import { User } from '../../../models/user.model';
+import { HttpClient } from "@angular/common/http";
 
 import { MessageService } from '../../../messages/message.service';
 import { AuthenticationService } from '@app/_services';
@@ -10,38 +12,42 @@ import { AuthenticationService } from '@app/_services';
 @Injectable()
 export class OrderService {
   constructor(
+    private http: HttpClient,
     private messageService: MessageService,
     private authService: AuthenticationService,
   ) {}
 
-  // public getOrders() {
-  //   return this.authService.currentUser
-  //     .pipe(
-  //       switchMap((user) => {
-  //         if (user) {
-  //           const remoteUserOrders = `/users/orders`;
-  //           return this.store.list(remoteUserOrders).valueChanges();
-  //         } else {
-  //           return of(null);
-  //         }
-  //       })
-  //     );
-  // }
+  public getOrders() {
+    return this.authService.currentUser
+      .pipe(
+        switchMap((user:User) => {
+          if (user) 
+          {
+            const userOrdersUrl = `api/orders/${user.id}`;
+            return this.http.get<Order[]>(SERVER_API_URL + userOrdersUrl)
+          } else {
+            return of(null);
+          }
+        })
+      );
+  }
 
-  // public addUserOrder(order: Order, total: number, user: string) {
-  //   const orderWithMetaData = {
-  //     ...order,
-  //     ...this.constructOrderMetaData(order),
-  //     total
-  //   };
+  public addUserOrder(order: Order, total: number, userId: string) {
+    order.userId = userId;
+    const orderWithMetaData = {
+      ...order,
+      ...this.constructOrderMetaData(order),
+      total
+    };
+    const userOrdersUrl = `api/orders/${userId}`;
+    const result = this.http.post<Order[]>(SERVER_API_URL + userOrdersUrl, orderWithMetaData)
+    // this.store
+    //   .list(`users/${user}/orders`)
+    //   .push(orderWithMetaData)
+    //   .then((response) => response, (error) => error);
 
-  //   const databaseOperation = this.store
-  //     .list(`users/${user}/orders`)
-  //     .push(orderWithMetaData)
-  //     .then((response) => response, (error) => error);
-
-  //   return fromPromise(databaseOperation);
-  // }
+    return fromPromise(result);
+  }
 
   // public addAnonymousOrder(order: Order, total: number) {
   //   const orderWithMetaData = {

@@ -24,13 +24,14 @@ export class OrdersComponent implements OnInit, OnDestroy {
   constructor(public orderService: OrderService) {}
 
   ngOnInit() {
-    // this.ordersSubscription = this.orderService
-    //   .getOrders()
-    //   .subscribe((orders: Order[]) => {
-    //     if (orders) {
-    //       this.orders = orders.reverse();
-    //     }
-    //   });
+    this.ordersSubscription = this.orderService
+      .getOrders()
+      .subscribe((orders: Order[]) => {
+        console.log(orders)
+        if (orders) {
+          this.orders = orders.reverse();
+        }
+      });
   }
 
   ngOnDestroy() {
