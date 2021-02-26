@@ -1,2 +1,2 @@
-﻿export * from './role.model';
+﻿export * from './authority.model';
 export * from './user.model';

@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { UserService } from '@app/services';
+import { UserService, AuthenticationService } from '@app/services';
 import { CheckoutService } from '../shared/checkout.service';
 import { CartService } from '../../cart/shared/cart.service';
 import { MessageService } from '../../messages/message.service';
@@ -33,6 +33,7 @@ export class ReviewComponent implements OnInit, OnDestroy {
     private orderService: OrderService,
     private router: Router,
     private userService: UserService,
+    private authService: UserService,
     private messageService: MessageService
   ) {}
 

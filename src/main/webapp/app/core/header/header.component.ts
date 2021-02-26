@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 
 import { Subscription } from 'rxjs';
 
-import { AuthenticationService,UserService } from '@app/services';
+import { AuthenticationService, UserService } from '@app/services';
 import { OffcanvasService } from '../shared/offcanvas.service';
 
 import { User } from '../../models/user.model';
@@ -19,20 +19,20 @@ export class HeaderComponent implements OnInit, OnDestroy {
   public showSearch;
 
   constructor(
-    private userService: UserService,
     private authService: AuthenticationService,
+    private userService: UserService,
     private router: Router,
     private offcanvasService: OffcanvasService
   ) {}
 
   ngOnInit() {
-    this.authSubscription = this.userService.identity().subscribe((user) => {
+    this.authSubscription = this.userService.getAuthenticationState().subscribe((user) => {
       this.user = user;
     });
   }
 
   public onLogOut(e: Event) {
-    this.authService.logout();
+    this.authService.logout().subscribe(null, null, () => this.userService.authenticate(null));
     this.router.navigate(['/register-login']);
     e.preventDefault();
   }

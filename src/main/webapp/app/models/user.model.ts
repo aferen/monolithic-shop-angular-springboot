@@ -1,4 +1,4 @@
-﻿import { Role } from "./role.model";
+﻿import { Authority } from "./authority.model";
 
 export class User {
     id:string;
@@ -8,7 +8,7 @@ export class User {
     email: string;
     verification: string;
     verified: boolean;
-    authorities: [Role];
+    authorities: [Authority];
     password?: string;
     confirmPassword?: string;
     photoURL?: string;

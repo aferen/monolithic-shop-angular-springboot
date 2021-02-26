@@ -25,7 +25,7 @@ export class AddressComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.initFormGroup();
 
-    this.authSubscription = this.userService.identity().subscribe((user) => {
+    this.authSubscription = this.userService.getAuthenticationState().subscribe((user) => {
       if (user) {
         this.user = user;
         this.initFormGroup();

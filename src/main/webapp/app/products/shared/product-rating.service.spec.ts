@@ -9,7 +9,7 @@ import { MessageService } from '../../messages/message.service';
 import { ProductRatingService } from './product-rating.service';
 
 import { Product } from '../../models/product.model';
-import { User, Roles } from '../../models/user.model';
+import { User } from '../../models/user.model';
 
 class MockAuthService {
   user: Observable<User>;

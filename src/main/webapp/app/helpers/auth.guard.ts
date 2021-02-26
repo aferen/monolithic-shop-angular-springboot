@@ -8,7 +8,7 @@ import {
 import { Observable } from "rxjs";
 import { AuthenticationService, UserService } from "@app/services";
 import { User } from "@app/models/user.model";
-
+import { map } from "rxjs/operators";
 import { createElementCssSelector } from "@angular/compiler";
 
 @Injectable({ providedIn: "root" })
@@ -21,32 +21,30 @@ export class AuthGuard implements CanActivate {
     private userService: UserService
   ) {}
 
-  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-   // console.log(this.userService.identity())
-    this.userService.identity().subscribe(user => this.user = user);
-    if (this.user) {
-      // check if route is restricted by role
-      if (!route.data.roles) {
-        return true;
-      } else if (route.data.roles && !this.user.authorities) {
-        // role not authorised so redirect to home page
-        this.router.navigate(["/"]);
-        return false;
-      } else if (route.data.roles && this.user.authorities) {
-        for (const element of route.data.roles) {
-          if (this.user.authorities.indexOf(element) > -1) {
+
+  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
+    const authorities = route.data['authorities'];
+    console.log(route)
+    return this.userService.identity().pipe(
+      map(user => {
+        if (user) {
+          if (!authorities || authorities.length === 0) {
             return true;
           }
+          const hasAnyAuthority = this.userService.hasAnyAuthority(authorities);
+          if (hasAnyAuthority) {
+            return true;
+          }
+          
+          this.router.navigate(['/']);
+          return false;
         }
-      } else {
-        this.router.navigate(["/"]);
+
+        this.router.navigate(["/register-login"], {
+          queryParams: { returnUrl: state.url },
+        });
         return false;
-      }
-    }
-    // not logged in so redirect to login page with the return url
-    this.router.navigate(["/register-login"], {
-      queryParams: { returnUrl: state.url },
-    });
-    return false;
+      })
+    );  
   }
 }

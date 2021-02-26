@@ -15,10 +15,10 @@ export class NavigationMainComponent implements OnInit, OnDestroy {
   public user: User;
   private authSubscription: Subscription;
 
-  constructor(public userService: UserService) {}
+  constructor(public UserService: UserService) {}
 
   ngOnInit() {
-    this.userService.identity().subscribe((user) => {
+    this.authSubscription = this.UserService.getAuthenticationState().subscribe((user) => {
       this.user = user;
     });
   }

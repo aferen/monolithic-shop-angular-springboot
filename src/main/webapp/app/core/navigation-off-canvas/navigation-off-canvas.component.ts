@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 
 import { Subscription } from 'rxjs';
 
-import { AuthenticationService,UserService } from '@app/services';
+import { AuthenticationService, UserService } from '@app/services';
 import { OffcanvasService } from '../shared/offcanvas.service';
 
 import { User } from '../../models/user.model';
@@ -19,20 +19,20 @@ export class NavigationOffCanvasComponent implements OnInit, OnDestroy {
 
   constructor(
     public offcanvasService: OffcanvasService,
+    public authService: AuthenticationService,
     public userService: UserService,
-    private authService: AuthenticationService,
     private router: Router
   ) {}
 
   ngOnInit() {
-    this.authSubscription = this.userService.identity().subscribe((user) => {
+    this.authSubscription = this.userService.getAuthenticationState().subscribe((user) => {
       this.user = user;
     });
   }
 
   public onLogout(e: Event) {
     this.offcanvasService.closeOffcanvasNavigation();
-    this.authService.logout();
+    this.authService.logout().subscribe(null, null, () => this.userService.authenticate(null));
     this.router.navigate(['/register-login']);
     e.preventDefault();
   }

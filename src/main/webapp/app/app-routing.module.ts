@@ -14,7 +14,7 @@ import { AccountComponent } from './account/account.component';
 import { ProductsListComponent } from './products/products-list/products-list.component';
 import { ProductDetailComponent } from './products/product-detail/product-detail.component';
 import { CompleteComponent } from './checkout/complete/complete.component';
-import { Role } from './models';
+import { Authority } from './models/authority.model';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -26,6 +26,10 @@ const routes: Routes = [
   {
     path: 'admin/edit/:id',
     component: AddEditComponent,
+    data: {
+      authorities: [Authority.Admin],
+      pageTitle: 'global.menu.account.settings',
+    },
     canActivate: [AuthGuard]
   },
   { path: 'checkout', component: CheckoutComponent },
@@ -35,8 +39,8 @@ const routes: Routes = [
     component: AccountComponent,
     children: [
       { path: '', redirectTo: 'profile', pathMatch: 'full' },
-      { path: 'orders', component: OrdersComponent },
-      { path: 'profile', component: ProfileComponent }
+      { path: 'orders', component: OrdersComponent, canActivate: [AuthGuard] },
+      { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] }
     ]
   },
   { path: 'order-complete', component: CompleteComponent },

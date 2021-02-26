@@ -5,6 +5,7 @@ import { map, catchError } from "rxjs/operators";
 import { MessageService } from '../messages/message.service';
 import { SERVER_API_URL } from '@app/app.constants';
 import { LocalStorageService, SessionStorageService } from 'ngx-webstorage';
+import { User } from "@app/models";
 
 type JwtToken = {
   id_token: string;
@@ -16,8 +17,7 @@ export class AuthenticationService {
      private messageService: MessageService,
      private $localStorage: LocalStorageService, 
      private $sessionStorage: SessionStorageService
-    ) {
-  }
+    ) {}
 
   getToken(): string {
     return this.$localStorage.retrieve('authenticationToken') || this.$sessionStorage.retrieve('authenticationToken') || '';
@@ -42,14 +42,21 @@ export class AuthenticationService {
     }
   }
 
-  logout() {
-    this.clear();
-    this.messageService.add('You have been logged out.');
+
+  logout(): Observable<void> {
+    return new Observable(observer => {
+      this.clear();
+      observer.complete();
+      this.messageService.add('You have been logged out.');
+    });
   }
 
-  unauthorized() {
-    this.clear();
-    this.messageService.addError('You are unauthorized to view these contents.');
+  unauthorized(): Observable<void> {
+    return new Observable(observer => {
+      this.clear();
+      observer.complete();
+      this.messageService.addError('You are unauthorized to view these contents.');
+    });
   }
 
   clear() {

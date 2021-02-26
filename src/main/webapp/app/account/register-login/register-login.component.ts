@@ -8,7 +8,7 @@ import {
 import { Router, ActivatedRoute, Params } from "@angular/router";
 import { MessageService } from "../../messages/message.service";
 import { AuthenticationService, UserService } from "@app/services";
-import { first } from "rxjs/operators";
+import { first, flatMap } from "rxjs/operators";
 import { HttpErrorResponse } from "@angular/common/http";
 
 @Component({
@@ -107,7 +107,7 @@ export class RegisterLoginComponent implements OnInit {
    // this.loading = true;
     this.authenticationService
       .login(this.f.email.value, this.f.password.value, this.f.rememberMe.value)
-      .pipe(first())
+      .pipe(flatMap(() => this.userService.identity()))
       .subscribe(
         () => {
          this.messageService.add("Login successful!");

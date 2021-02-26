@@ -5,8 +5,8 @@ import {
   HttpHeaders,
   HttpUserEvent,
 } from "@angular/common/http";
-import { BehaviorSubject, Observable, of } from "rxjs";
-import { shareReplay, map, catchError, tap } from "rxjs/operators";
+import { BehaviorSubject, Observable, of, ReplaySubject } from "rxjs";
+import { shareReplay, map, catchError, tap, flatMap } from "rxjs/operators";
 import { MessageService } from "../messages/message.service";
 import { User } from "@app/models";
 import { SERVER_API_URL } from "@app/app.constants";
@@ -16,14 +16,16 @@ import { AuthenticationService } from '@app/services/authentication.service';
 export class UserService {
   private user$?: Observable<User | null>;
   private userIdentity: User | null = null;
+  private authenticationState = new ReplaySubject<User | null>(1);
+
 
   constructor(private messageService: MessageService,
     private authService: AuthenticationService,
-    private http: HttpClient) {}
+    private http: HttpClient) { }
 
-  identity(): Observable<User | null> {
+  identity(force?: boolean): Observable<User | null> {
     if(this.authService.getToken()) {
-      if (!this.user$ || !this.isAuthenticated()) {
+      if (!this.user$ || force || !this.isAuthenticated()) {
         this.user$ = this.fetch().pipe(
           catchError(() => {
             return of(null);
@@ -47,21 +49,30 @@ export class UserService {
 
   authenticate(identity: User | null): void {
     this.userIdentity = identity;
-    // this.authenticationState.next(this.userIdentity);
+    this.authenticationState.next(this.userIdentity);
+  }
+
+  getAuthenticationState(): Observable<User | null> {
+    return this.authenticationState.asObservable();
   }
   
   isAuthenticated(): boolean {
     return this.userIdentity !== null;
   }
   
+
+  hasAnyAuthority(authorities: string[] | string): boolean {
+    if (!this.userIdentity || !this.userIdentity.authorities) {
+      return false;
+    }
+    if (!Array.isArray(authorities)) {
+      authorities = [authorities];
+    }
+    return this.userIdentity.authorities.some((authority: string) => authorities.includes(authority));
+  }
+
   updateProfile(user: User) {
-    return this.http
-      .post(SERVER_API_URL + "api/account", user)
-      .toPromise()
-      .then(() => this.messageService.add("Profile has been updated!"))
-      .catch((error) => {
-        this.messageService.addError("Profile has not been updated!");
-      });
+    return this.http.post(SERVER_API_URL + "api/account", user)
   }
 
   updatePassword(newPassword: string, currentPassword: string) {
@@ -70,10 +81,5 @@ export class UserService {
         currentPassword,
         newPassword,
       })
-      .toPromise()
-      .then(() => this.messageService.add("Password has been updated!"))
-      .catch((error) => {
-        this.messageService.addError("Password has not been updated!");
-      });
   }
 }
