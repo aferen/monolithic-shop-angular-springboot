@@ -3,7 +3,8 @@ import { Observable ,  from as fromPromise ,  of } from 'rxjs';
 import { UserService } from '@app/services';
 import { MessageService } from '../../messages/message.service';
 import { FileUploadService } from './file-upload.service';
-
+import { HttpClient } from "@angular/common/http";
+import { SERVER_API_URL } from "@app/app.constants";
 import { ProductsUrl } from './productsUrl';
 import { Product } from '../../models/product.model';
 import { User } from '../../models/user.model';
@@ -14,6 +15,7 @@ export class ProductRatingService {
   private user: User;
 
   constructor(
+    private http: HttpClient,
     private messageService: MessageService,
     public userService: UserService
   ) {
@@ -41,18 +43,17 @@ export class ProductRatingService {
   }
 
   public rateProduct(product: Product, rating: number) {
-    const url = `${this.productsUrl}/${product.id}`;
     const updates = this.constructRating(product, rating);
-
-    // return fromPromise(
-    //   this.angularFireDatabase
-    //     .object<Product>(url)
-    //     .update(updates)
-    //     .then(() => this.log(`Rated Product ${product.name} width: ${rating}`))
-    //     .catch((error) => {
-    //       this.handleError<any>(error);
-    //     })
-    // );
+    product.currentRating = this.calculateOverallRating(product,rating);
+    return fromPromise(
+        this.http
+        .put<Product>(SERVER_API_URL + this.productsUrl, product)
+        .toPromise()
+        .then(() => this.log(`Rated Product ${product.name} width: ${rating}`))
+        .catch((error) => {
+          this.handleError<any>(error);
+        })
+    );
   }
 // pure helper functions start here
   private constructRating(product: Product, rating: number) {

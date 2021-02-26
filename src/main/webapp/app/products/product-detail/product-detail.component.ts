@@ -69,7 +69,7 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
 
   private getProduct(): void {
     this.productLoading = true;
-    const id = this.route.snapshot.paramMap.get('id');//+ vardı
+    const id = this.route.snapshot.paramMap.get('id');
     this.productService
       .getProduct(id)
       .pipe(takeUntil(this.unsubscribe$))
@@ -99,13 +99,13 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
   }
 
   public onRate() {
-    // const rating = parseInt(this.selectedRating, 10);
-    // this.productRatingService
-    //   .rateProduct(this.product, rating)
-    //   .pipe(takeUntil(this.unsubscribe$))
-    //   .subscribe((response) => {
-    //     this.getProduct();
-    //   });
+    const rating = parseInt(this.selectedRating, 10);
+    this.productRatingService
+      .rateProduct(this.product, rating)
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe((response) => {
+        this.getProduct();
+      });
   }
 
   public onImageLoad(e: any) {
