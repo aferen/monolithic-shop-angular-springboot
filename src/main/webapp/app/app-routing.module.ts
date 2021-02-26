@@ -1,57 +1,67 @@
-import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
-import { AppComponent } from './app.component';
-import { HomeComponent } from './core/home/home.component';
-import { CartComponent } from './cart/cart.component';
-import { AddEditComponent } from './admin/add-edit/add-edit.component';
-import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
-import { AuthGuard } from './helpers';
-import { CheckoutComponent } from './checkout/checkout.component';
-import { RegisterLoginComponent } from './account/register-login/register-login.component';
-import { OrdersComponent } from './account/orders/orders.component';
-import { ProfileComponent } from './account/profile/profile.component';
-import { AccountComponent } from './account/account.component';
-import { ProductsListComponent } from './products/products-list/products-list.component';
-import { ProductDetailComponent } from './products/product-detail/product-detail.component';
-import { CompleteComponent } from './checkout/complete/complete.component';
-import { Authority } from './models/authority.model';
+import { NgModule } from "@angular/core";
+import { Routes, RouterModule } from "@angular/router";
+import { AppComponent } from "./app.component";
+import { HomeComponent } from "./core/home/home.component";
+import { CartComponent } from "./cart/cart.component";
+import { AddEditComponent } from "./admin/add-edit/add-edit.component";
+import { PageNotFoundComponent } from "./page-not-found/page-not-found.component";
+import { AuthGuard } from "./helpers";
+import { CheckoutComponent } from "./checkout/checkout.component";
+import { RegisterLoginComponent } from "./account/register-login/register-login.component";
+import { OrdersComponent } from "./account/orders/orders.component";
+import { ProfileComponent } from "./account/profile/profile.component";
+import { AccountComponent } from "./account/account.component";
+import { ProductsListComponent } from "./products/products-list/products-list.component";
+import { ProductDetailComponent } from "./products/product-detail/product-detail.component";
+import { CompleteComponent } from "./checkout/complete/complete.component";
+import { Authority } from "./models/authority.model";
 
 const routes: Routes = [
-  { path: '', redirectTo: '/home', pathMatch: 'full' },
-  { path: 'home', component: HomeComponent },
-  { path: 'products', component: ProductsListComponent },
-  { path: 'products/:id', component: ProductDetailComponent },
-  { path: 'cart', component: CartComponent },
-  { path: 'admin/add', component: AddEditComponent, canActivate: [AuthGuard] },
+  { path: "", redirectTo: "/home", pathMatch: "full" },
+  { path: "home", component: HomeComponent },
+  { path: "products", component: ProductsListComponent },
+  { path: "products/:id", component: ProductDetailComponent },
+  { path: "cart", component: CartComponent },
+  { 
+    path: "admin/add", 
+    component: AddEditComponent, 
+    data: {
+      authorities: [Authority.Admin],
+    },
+    canActivate: [AuthGuard] 
+  },
   {
-    path: 'admin/edit/:id',
+    path: "admin/edit/:id",
     component: AddEditComponent,
     data: {
       authorities: [Authority.Admin],
-      pageTitle: 'global.menu.account.settings',
     },
-    canActivate: [AuthGuard]
+    canActivate: [AuthGuard],
   },
-  { path: 'checkout', component: CheckoutComponent },
-  { path: 'register-login', component: RegisterLoginComponent },
+  { path: "checkout", component: CheckoutComponent },
+  { path: "register-login", component: RegisterLoginComponent },
   {
-    path: 'account',
+    path: "account",
     component: AccountComponent,
     children: [
-      { path: '', redirectTo: 'profile', pathMatch: 'full' },
-      { path: 'orders', component: OrdersComponent, canActivate: [AuthGuard] },
-      { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] }
-    ]
+      { path: "", redirectTo: "profile", pathMatch: "full" },
+      { path: "orders", component: OrdersComponent, canActivate: [AuthGuard] },
+      {
+        path: "profile",
+        component: ProfileComponent,
+        canActivate: [AuthGuard],
+      },
+    ],
   },
-  { path: 'order-complete', component: CompleteComponent },
-  { path: '**', component: PageNotFoundComponent }
+  { path: "order-complete", component: CompleteComponent },
+  { path: "**", component: PageNotFoundComponent },
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes, {scrollPositionRestoration: 'enabled'})],
+  imports: [
+    RouterModule.forRoot(routes, { scrollPositionRestoration: "enabled" }),
+  ],
   exports: [RouterModule],
-  providers: [
-    AuthGuard,
-  ]
+  providers: [AuthGuard],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}
