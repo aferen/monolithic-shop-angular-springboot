@@ -3,7 +3,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
-import { AuthenticationService } from '@app/_services';
+import { UserService } from '@app/services';
 import { PagerService } from '../../pager/pager.service';
 import { ProductsCacheService } from '../shared/products-cache.service';
 import { ProductService } from '../shared/product.service';
@@ -32,12 +32,12 @@ export class ProductsListComponent implements OnInit, OnDestroy {
     private productsCacheService: ProductsCacheService,
     private pagerService: PagerService,
     private sortPipe: SortPipe,
-    private authService: AuthenticationService,
+    private userService: UserService,
     public uiService: UiService
   ) {}
 
   ngOnInit() {
-    this.authService.currentUser
+    this.userService.identity()
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe((user) => {
         this.user = user;

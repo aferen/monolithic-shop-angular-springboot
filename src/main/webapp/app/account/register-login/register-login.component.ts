@@ -7,7 +7,7 @@ import {
 } from "@angular/forms";
 import { Router, ActivatedRoute, Params } from "@angular/router";
 import { MessageService } from "../../messages/message.service";
-import { AuthenticationService } from "@app/_services";
+import { AuthenticationService, UserService } from "@app/services";
 import { first } from "rxjs/operators";
 import { HttpErrorResponse } from "@angular/common/http";
 
@@ -30,9 +30,11 @@ export class RegisterLoginComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private messageService: MessageService,
-    private authenticationService: AuthenticationService
+    private authenticationService: AuthenticationService,   
+    private userService: UserService
+
   ) {
-    if (this.authenticationService.currentUserValue) {
+    if (this.userService.isAuthenticated()) {
       this.router.navigate(["/"]);
     }
   }
@@ -48,6 +50,8 @@ export class RegisterLoginComponent implements OnInit {
     this.loginForm = new FormGroup({
       email: new FormControl(null, [Validators.required, Validators.email]),
       password: new FormControl(null, Validators.required),
+      rememberMe: new FormControl(true),
+
     });
   }
 
@@ -102,19 +106,15 @@ export class RegisterLoginComponent implements OnInit {
 
    // this.loading = true;
     this.authenticationService
-      .login(this.f.email.value, this.f.password.value)
+      .login(this.f.email.value, this.f.password.value, this.f.rememberMe.value)
       .pipe(first())
       .subscribe(
         () => {
-         this.authenticationService.getAccount().pipe(first()).subscribe(
-          (data) => {
-               //console.log(data)
-          })
          this.messageService.add("Login successful!");
          this.router.navigate([this.returnUrl]);
         },
         (error) => {
-          this.messageService.addError(error.error.message);
+          this.messageService.addError("Your email or password is incorrect!");
         }
       );
   }

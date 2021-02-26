@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import { AuthenticationService } from '@app/_services';
+import { AuthenticationService } from '@app/services';
 import { Router } from '@angular/router';
 import { OrderService } from './orders/shared/order.service';
 

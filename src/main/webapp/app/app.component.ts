@@ -9,5 +9,6 @@ import { OffcanvasService } from './core/shared/offcanvas.service';
 export class AppComponent {
   public products: any;
 
-  constructor(public offcanvasService: OffcanvasService) {}
+  constructor(public offcanvasService: OffcanvasService) {
+  }
 }

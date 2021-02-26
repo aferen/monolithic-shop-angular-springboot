@@ -11,7 +11,8 @@ import { CheckoutModule } from './checkout/checkout.module';
 import { AccountModule } from './account/account.module';
 import { AdminModule } from './admin/admin.module';
 import { environment } from '../environments/environment';
-import { JwtInterceptor, ErrorInterceptor } from './_helpers';
+import { JwtInterceptor, ErrorInterceptor } from './helpers';
+import { NgxWebstorageModule } from 'ngx-webstorage';
 
 // Components
 import { AppComponent } from './app.component';
@@ -29,6 +30,7 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
     BrowserAnimationsModule,
     HttpClientModule,
     SharedModule,
+    NgxWebstorageModule.forRoot(),
     ToastrModule.forRoot(),
     CoreModule,
     ProductsModule,

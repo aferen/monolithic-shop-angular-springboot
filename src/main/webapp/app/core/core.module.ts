@@ -22,12 +22,11 @@ import { CartService } from '../cart/shared/cart.service';
 import { PagerService } from '../pager/pager.service';
 import { OrderService } from '../account/orders/shared/order.service';
 import { CheckoutService } from '../checkout/shared/checkout.service';
-import { AuthenticationService } from '@app/_services';
+import { AuthenticationService, UserService } from '@app/services';
 import { OffcanvasService } from './shared/offcanvas.service';
 import { PromoService } from './shared/promo.service';
 import { UiService } from '../products/shared/ui.service';
 import { ProductsCacheService } from '../products/shared/products-cache.service';
-
 import { throwIfAlreadyLoaded } from './module-import-guard';
 
 
@@ -68,6 +67,7 @@ import { throwIfAlreadyLoaded } from './module-import-guard';
         OrderService,
         CheckoutService,
         AuthenticationService,
+        UserService,
         OffcanvasService,
         PromoService,
         UiService,

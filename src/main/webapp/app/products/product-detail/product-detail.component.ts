@@ -6,7 +6,7 @@ import { Params } from '@angular/router';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
-import { AuthenticationService } from '@app/_services';
+import { UserService } from '@app/services';
 import { CartService } from '../../cart/shared/cart.service';
 import { CartItem } from '../../models/cart-item.model';
 import { ProductsCacheService } from '../shared/products-cache.service';
@@ -42,7 +42,7 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
     private router: Router,
     private route: ActivatedRoute,
     private location: Location,
-    private authService: AuthenticationService,
+    private userService: UserService,
     private cartService: CartService,
     private productsCacheService: ProductsCacheService,
     private productService: ProductService,
@@ -50,7 +50,7 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.authService.currentUser
+    this.userService.identity()
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe((user) => {
         this.user = user;

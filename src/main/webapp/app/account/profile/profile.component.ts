@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, Validators, FormControl } from '@angular/forms';
 
-import { AuthenticationService } from '@app/_services';
+import { UserService } from '@app/services';
 
 import { User } from '../../models/user.model';
 import { Subscription } from 'rxjs';
@@ -17,11 +17,11 @@ export class ProfileComponent implements OnInit, OnDestroy {
   public profileErrors: string;
   private user: User;
 
-  constructor(private authService: AuthenticationService) { }
+  constructor(private userService: UserService) { }
 
   ngOnInit() {
     this.initFormGroup();
-    this.authSubscription = this.authService.currentUser.subscribe(
+    this.authSubscription = this.userService.identity().subscribe(
       user => {
         if (user) {
           this.formProfile.patchValue({
@@ -48,7 +48,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
   public onSubmit() {
     if (this.user.email !== this.formProfile.value.email || this.user.firstName !== this.formProfile.value.firstName || this.user.lastName !== this.formProfile.value.lastName) {
-      this.authService.updateProfile(this.formProfile.value)
+      this.userService.updateProfile(this.formProfile.value)
     }
 
     if(this.formProfile.value.newPassword !== this.formProfile.value.confirmPassword){
@@ -56,7 +56,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
     }
     else if (this.formProfile.value.oldPassword && this.formProfile.value.newPassword && this.formProfile.value.confirmPassword
       && (this.formProfile.value.newPassword === this.formProfile.value.confirmPassword)) {
-        this.authService.updatePassword(this.formProfile.value.newPassword,this.formProfile.value.oldPassword)
+        this.userService.updatePassword(this.formProfile.value.newPassword,this.formProfile.value.oldPassword)
     }
   }
 

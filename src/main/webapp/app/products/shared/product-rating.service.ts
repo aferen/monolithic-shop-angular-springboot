@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable ,  from as fromPromise ,  of } from 'rxjs';
-import { AuthenticationService } from '@app/_services';
+import { UserService } from '@app/services';
 import { MessageService } from '../../messages/message.service';
 import { FileUploadService } from './file-upload.service';
 
@@ -15,9 +15,9 @@ export class ProductRatingService {
 
   constructor(
     private messageService: MessageService,
-    public authService: AuthenticationService
+    public userService: UserService
   ) {
-    this.authService.currentUser.subscribe(user => this.user = user);
+    this.userService.identity().subscribe(user => this.user = user);
   }
 
   /** Log a ProductService message with the MessageService */

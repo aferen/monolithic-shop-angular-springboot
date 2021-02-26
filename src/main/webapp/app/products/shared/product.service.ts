@@ -8,7 +8,7 @@ import {
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { catchError, tap, switchMap, map } from "rxjs/operators";
-import { AuthenticationService } from "@app/_services";
+import { AuthenticationService } from "@app/services";
 import { FileUploadService } from "./file-upload.service";
 import { MessageService } from "../../messages/message.service";
 import { ProductRatingService } from "./product-rating.service";

@@ -2,7 +2,7 @@ import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 
 import { Subscription } from 'rxjs';
 
-import { AuthenticationService } from '@app/_services';
+import { UserService } from '@app/services';
 import { CartService } from '../../cart/shared/cart.service';
 
 import { CartItem } from '../../models/cart-item.model';
@@ -23,12 +23,13 @@ export class ProductsListItemComponent implements OnInit, OnDestroy {
 
   constructor(
     private cartService: CartService,
-    private authService: AuthenticationService
+    private userService: UserService
+
   ) {}
 
   ngOnInit() {
     this.imageLoading = true;
-    this.userSubscription = this.authService.currentUser.subscribe((user) => {
+    this.userSubscription = this.userService.identity().subscribe((user) => {
       this.user = user;
     });
   }

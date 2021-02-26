@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 
 import { Subscription } from 'rxjs';
 
-import { AuthenticationService } from '@app/_services';
+import { AuthenticationService,UserService } from '@app/services';
 import { OffcanvasService } from '../shared/offcanvas.service';
 
 import { User } from '../../models/user.model';
@@ -19,12 +19,13 @@ export class NavigationOffCanvasComponent implements OnInit, OnDestroy {
 
   constructor(
     public offcanvasService: OffcanvasService,
-    public authService: AuthenticationService,
+    public userService: UserService,
+    private authService: AuthenticationService,
     private router: Router
   ) {}
 
   ngOnInit() {
-    this.authSubscription = this.authService.currentUser.subscribe((user) => {
+    this.authSubscription = this.userService.identity().subscribe((user) => {
       this.user = user;
     });
   }

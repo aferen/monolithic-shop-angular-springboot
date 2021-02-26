@@ -12,6 +12,4 @@ export class User {
     password?: string;
     confirmPassword?: string;
     photoURL?: string;
-    id_token: string;
-
 }

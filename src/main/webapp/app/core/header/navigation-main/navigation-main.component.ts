@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 
 import { Subscription } from 'rxjs';
 
-import { AuthenticationService } from '@app/_services';
+import { UserService } from '@app/services';
 
 import { User } from '../../../models/user.model';
 
@@ -15,10 +15,10 @@ export class NavigationMainComponent implements OnInit, OnDestroy {
   public user: User;
   private authSubscription: Subscription;
 
-  constructor(public authService: AuthenticationService) {}
+  constructor(public userService: UserService) {}
 
   ngOnInit() {
-    this.authService.currentUser.subscribe((user) => {
+    this.userService.identity().subscribe((user) => {
       this.user = user;
     });
   }

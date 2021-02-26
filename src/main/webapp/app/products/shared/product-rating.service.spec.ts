@@ -4,7 +4,7 @@ import { AngularFireDatabase } from 'angularfire2/database';
 import { Observable } from 'rxjs/observable';
 import { of } from 'rxjs/observable/of';
 
-import { AuthenticationService } from '@app/_services';
+import { AuthenticationService } from '@app/services';
 import { MessageService } from '../../messages/message.service';
 import { ProductRatingService } from './product-rating.service';
 

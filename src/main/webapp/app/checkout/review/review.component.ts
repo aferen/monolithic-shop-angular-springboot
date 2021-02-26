@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { AuthenticationService } from '@app/_services';
+import { UserService } from '@app/services';
 import { CheckoutService } from '../shared/checkout.service';
 import { CartService } from '../../cart/shared/cart.service';
 import { MessageService } from '../../messages/message.service';
@@ -32,12 +32,12 @@ export class ReviewComponent implements OnInit, OnDestroy {
     private checkoutService: CheckoutService,
     private orderService: OrderService,
     private router: Router,
-    private authService: AuthenticationService,
+    private userService: UserService,
     private messageService: MessageService
   ) {}
 
   ngOnInit() {
-    this.authService.currentUser.subscribe(user => this.user = user);
+    this.userService.identity().subscribe(user => this.user = user);
 
     this.items = this.cartService.getItems();
     this.total = this.cartService.getTotal();

@@ -7,18 +7,18 @@ import { User } from '../../../models/user.model';
 import { HttpClient } from "@angular/common/http";
 
 import { MessageService } from '../../../messages/message.service';
-import { AuthenticationService } from '@app/_services';
+import { UserService } from '@app/services';
 
 @Injectable()
 export class OrderService {
   constructor(
     private http: HttpClient,
     private messageService: MessageService,
-    private authService: AuthenticationService,
+    private userService: UserService,
   ) {}
 
   public getOrders() {
-    return this.authService.currentUser
+    return this.userService.identity()
       .pipe(
         switchMap((user:User) => {
           if (user) 

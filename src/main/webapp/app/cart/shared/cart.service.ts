@@ -11,7 +11,7 @@ export class CartService {
 
   constructor(private messageService: MessageService) {
     this.cartItems = [];
-    if (this.getItems === null) {
+    if (JSON.parse(localStorage.getItem("currentOrderItems")) === null) {
       this.updateLocalStoreOrderItems(this.cartItems)
     } else {
       this.cartItems = this.getItems();
@@ -20,7 +20,6 @@ export class CartService {
 
   public getItems() : CartItem[]{
     return JSON.parse(localStorage.getItem("currentOrderItems"))
-    //return this.cartItems.slice();
   }
 
   // Get Product ids out of CartItem[] in a new array

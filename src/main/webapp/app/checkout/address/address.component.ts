@@ -3,7 +3,7 @@ import { NgForm, FormGroup, FormControl, Validators } from '@angular/forms';
 
 import { Subscription } from 'rxjs';
 
-import { AuthenticationService } from '@app/_services';
+import { UserService } from '@app/services';
 import { CheckoutService } from '../shared/checkout.service';
 
 @Component({
@@ -19,13 +19,13 @@ export class AddressComponent implements OnInit, OnDestroy {
 
   constructor(
     private checkoutService: CheckoutService,
-    private authService: AuthenticationService
+    private userService: UserService
   ) {}
 
   ngOnInit() {
     this.initFormGroup();
 
-    this.authSubscription = this.authService.currentUser.subscribe((user) => {
+    this.authSubscription = this.userService.identity().subscribe((user) => {
       if (user) {
         this.user = user;
         this.initFormGroup();
