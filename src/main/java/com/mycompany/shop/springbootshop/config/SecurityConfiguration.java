@@ -1,6 +1,5 @@
 package com.mycompany.shop.springbootshop.config;
 
-import com.mycompany.shop.springbootshop.security.*;
 import com.mycompany.shop.springbootshop.security.jwt.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpMethod;

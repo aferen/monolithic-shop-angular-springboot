@@ -93,4 +93,15 @@ public class ProductController {
         return ResponseEntity.noContent().build();
     }
 
+	@PutMapping(value = "/products/rating")
+	@PreAuthorize("isAuthenticated()")
+    public ResponseEntity<Product> updateProductRating(@Valid @RequestBody Product product) {
+		log.debug("REST request to update Product Rating: {}", product);
+		if (StringUtils.isBlank(product.getId())) {
+            throw new BadRequestException("Invalid id", "product", "idnull");
+		}
+		Product result = productRepository.save(product);
+		return ResponseEntity.ok().body(result);		
+    }
+
 }

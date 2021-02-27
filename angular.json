@@ -11,10 +11,10 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "src/main/webapp/dist",
+            "outputPath": "dist",
             "index": "src/main/webapp/index.html",
             "main": "src/main/webapp/main.ts",
-            "tsConfig": "./tsconfig.app.json",
+            "tsConfig": "src/main/webapp/tsconfig.app.json",
             "polyfills": "src/main/webapp/polyfills.ts",
             "assets": [
               "src/main/webapp/assets",
@@ -71,7 +71,7 @@
             "main": "src/main/webapp/test.ts",
             "karmaConfig": "src/test/javascript/karma.conf.js",
             "polyfills": "src/main/webapp/polyfills.ts",
-            "tsConfig": "./tsconfig.spec.json",
+            "tsConfig": "src/main/webapp/tsconfig.spec.json",
             "scripts": [
               "src/main/webapp/assets/js/modernizr.js"
             ],
@@ -89,8 +89,8 @@
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "./tsconfig.app.json",
-              "./tsconfig.spec.json"
+              "src/main/webapp/tsconfig.app.json",
+              "src/main/webapp/tsconfig.spec.json"
             ],
             "exclude": [
               "**/node_modules/**"

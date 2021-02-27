@@ -11,7 +11,8 @@ import { User } from '../../models/user.model';
 
 @Injectable()
 export class ProductRatingService {
-  private productsUrl = ProductsUrl.productsUrl;
+  private productsRatingUrl = ProductsUrl.productsRatingUrl;
+
   private user: User;
 
   constructor(
@@ -47,7 +48,7 @@ export class ProductRatingService {
     product.currentRating = this.calculateOverallRating(product,rating);
     return fromPromise(
         this.http
-        .put<Product>(SERVER_API_URL + this.productsUrl, product)
+        .put<Product>(SERVER_API_URL + this.productsRatingUrl, product)
         .toPromise()
         .then(() => this.log(`Rated Product ${product.name} width: ${rating}`))
         .catch((error) => {

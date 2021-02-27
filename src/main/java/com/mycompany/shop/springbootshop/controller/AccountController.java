@@ -10,12 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.http.HttpStatus;
-
 import java.util.Optional;
-
-import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
-
 import com.mycompany.shop.springbootshop.controller.exception.EmailAlreadyUsedException;
 import com.mycompany.shop.springbootshop.controller.exception.InvalidPasswordException;
 import com.mycompany.shop.springbootshop.controller.vm.ManagedUserVM;

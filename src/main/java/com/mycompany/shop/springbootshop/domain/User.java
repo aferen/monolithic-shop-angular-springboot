@@ -1,12 +1,8 @@
 package com.mycompany.shop.springbootshop.domain;
 
 import java.io.Serializable;
-import java.util.Arrays;
 import java.util.Set;
 import java.util.HashSet;
-
-import javax.validation.constraints.NotNull;
-
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;

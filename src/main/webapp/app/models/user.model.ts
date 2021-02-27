@@ -1,6 +1,4 @@
-﻿import { Authority } from "./authority.model";
-
-export class User {
+﻿export class User {
     id:string;
     name: string;
     firstName?: string;
@@ -8,7 +6,7 @@ export class User {
     email: string;
     verification: string;
     verified: boolean;
-    authorities: [Authority];
+    authorities: string[];
     password?: string;
     confirmPassword?: string;
     photoURL?: string;

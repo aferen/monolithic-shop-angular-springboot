@@ -1,1 +1,1 @@
-{"indexes":[{"v":{"$numberInt":"2"},"key":{"_id":{"$numberInt":"1"}},"name":"_id_","ns":"shopDB.promos"}],"uuid":"62ee2dd855e64107a4fd782602511e40","collectionName":"promos"}
+{"indexes":[{"v":{"$numberInt":"2"},"key":{"_id":{"$numberInt":"1"}},"name":"_id_"}],"uuid":"0aed1fc06c624e809c8a9f0d72e1ad1c","collectionName":"promos"}

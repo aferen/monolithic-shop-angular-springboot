@@ -2,7 +2,6 @@ package com.mycompany.shop.springbootshop.security;
 
 import com.mycompany.shop.springbootshop.domain.User;
 import com.mycompany.shop.springbootshop.repository.UserRepository;
-import org.hibernate.validator.internal.constraintvalidators.hv.EmailValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.core.GrantedAuthority;
