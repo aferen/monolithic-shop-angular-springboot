@@ -173,9 +173,9 @@
 <!-- Off-Canvas Mobile Menu-->
 <div class="offcanvas-container" id="mobile-menu" [ngClass]="{'active': offcanvasService.offcanvasNavigationOpen | async}">
   <a *ngIf="user" class="account-link" routerLink="/account/profile" (click)="onNavigationClick()">
-    <div class="user-ava">
+    <!-- <div class="user-ava">
       <img src="img/user-ava-md.jpg" alt="">
-    </div>
+    </div> -->
     <div class="user-info">
       <span class="text-sm text-white opacity-60">Logged in as:</span>
       <h6 class="user-name">{{ user.firstName }}<span *ngIf="user.authorities.indexOf('admin') > -1"> (Admin)</span></h6>

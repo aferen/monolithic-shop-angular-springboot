@@ -13,8 +13,6 @@ server:
 
 app:
   baseUrl: http://localhost:8080
-  file:
-    images-path: ${IMAGES_PATH}
   security:
     authentication:
       jwt:
