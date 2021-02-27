@@ -39,7 +39,7 @@ npm run build
 ```
 
 ###### Note: 
-> This application has been cloned from the following [link](https://github.com/monobasic/Angular-Reactive-Demo-Shop) and the backend of the application has been changed from google firebase to [spring-boot](https://github.com/ahmetfurkaneren/monolithic-shop-springboot)
+> This application has been cloned from the following [link](https://github.com/monobasic/Angular-Reactive-Demo-Shop) and the backend of the application has been changed from google firebase to spring-boot.
 
 
 ## Installation of Backend
@@ -55,9 +55,8 @@ mongorestore  data/
 ```bash
 export MONGO_URI=mongodb://localhost:27017/shop
 export JWT_BASE64_SECRET=<base64-secret>
-base64-secret for quick installation: 
 ```
-> base64-secret for quick installation: NGUwZjNiYWQzMDBmZGRmMWNjN2ZhZmY4MmMzZmYzYmM4YWU1MDIwNzJmZTMyY2Q0MDgzNTY5MWI5OWQwNGIxY2U5YTE2YTM2MzI2YzM5YWYwMGY1Njg3YjIxMGQ3OTBkOTNmOGNjNGRjZGQyMGU3ZGU5OGI3ZmViZGM1Y2UyN2I=
+> **base64-secret for quick installation** NGUwZjNiYWQzMDBmZGRmMWNjN2ZhZmY4MmMzZmYzYmM4YWU1MDIwNzJmZTMyY2Q0MDgzNTY5MWI5OWQwNGIxY2U5YTE2YTM2MzI2YzM5YWYwMGY1Njg3YjIxMGQ3OTBkOTNmOGNjNGRjZGQyMGU3ZGU5OGI3ZmViZGM1Y2UyN2I=
 #### Run the app
 	
 Note: Product images removed from repo because of image licensing reasons so that should add product picture in image f
