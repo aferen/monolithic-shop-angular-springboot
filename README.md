@@ -31,9 +31,9 @@ npm run start
 ```
 
 Runs a webpack-development server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
->**Test User Accounts**
-admin: (email: admin@admin.com, password:12345)
-user: (email: user@user.com, password:12345)
+- User Test Accounts
+  - admin: `email:admin@admin.com | password:12345`
+  - user: `email:user@user.com | password:12345`
 #### Build app for prod
 
 ```bash
@@ -56,16 +56,12 @@ mongorestore  data/
 
 ```bash
 export MONGO_URI=mongodb://localhost:27017/shop
-export JWT_BASE64_SECRET=<base64-secret>
+export JWT_BASE64_SECRET=$(openssl rand -base64 64)
 ```
-- **example base64-secret for quick installation** NGUwZjNiYWQzMDBmZGRmMWNjN2ZhZmY4MmMzZmYzYmM4YWU1MDIwNzJmZTMyY2Q0MDgzNTY5MWI5OWQwNGIxY2U5YTE2YTM2MzI2YzM5YWYwMGY1Njg3YjIxMGQ3OTBkOTNmOGNjNGRjZGQyMGU3ZGU5OGI3ZmViZGM1Y2UyN2I=
-or create new one
-```bash
-openssl rand -base64 64
-```
+
 #### Run the app
 	
-Note: Images are pixelate because of image licensing reasons.
+Note: Images were pixelated because of license reasons.
 
 You can run the spring boot app by typing the following command
 
