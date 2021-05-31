@@ -19,7 +19,7 @@ public class FileService {
    
     public Resource getFile(String fileName, String folder) {
         try {
-            Path fileStorageLocation = Paths.get("images",folder)
+            Path fileStorageLocation = Paths.get("images2",folder)
             .toAbsolutePath().normalize();
             Path filePath = fileStorageLocation.resolve(fileName).normalize();
             Resource resource = new UrlResource(filePath.toUri());
@@ -39,7 +39,7 @@ public class FileService {
             if(fileName.contains("..")) {
                 throw new FileStorageException("Sorry! Filename contains invalid path sequence " + fileName);
             }
-            Path fileStorageLocation = Paths.get("images",folder).toAbsolutePath().normalize();
+            Path fileStorageLocation = Paths.get("images2",folder).toAbsolutePath().normalize();
             Path path = fileStorageLocation.resolve(fileName);
             Files.copy(file.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
             return fileName;
@@ -53,7 +53,7 @@ public class FileService {
             if(fileName.contains("..")) {
                 throw new FileStorageException("Sorry! Filename contains invalid path sequence " + fileName);
             }
-            Path fileStorageLocation = Paths.get("images",folder).toAbsolutePath().normalize();
+            Path fileStorageLocation = Paths.get("images2",folder).toAbsolutePath().normalize();
             Path path = fileStorageLocation.resolve(fileName);
             Files.deleteIfExists(path);
         } catch (IOException ex) {
