@@ -24,5 +24,9 @@ app:
       expiration: 3600
       server: redis://localhost:6379
       cluster: false
+      connectionPoolSize: 64
+      connectionMinimumIdleSize: 10
+      subscriptionConnectionPoolSize: 50
+
   
   
