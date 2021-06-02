@@ -15,6 +15,7 @@ import com.mycompany.shop.springbootshop.repository.UserRepository;
 import com.mycompany.shop.springbootshop.security.AuthoritiesConstants;
 import com.mycompany.shop.springbootshop.security.SecurityUtils;
 import com.mycompany.shop.springbootshop.service.dto.UserDTO;
+import org.springframework.cache.CacheManager;
 
 @Service
 public class UserService {
@@ -26,11 +27,13 @@ public class UserService {
 
 	private final AuthorityRepository authorityRepository;
 
+    private final CacheManager cacheManager;
 
-	public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, AuthorityRepository authorityRepository) {
+	public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, AuthorityRepository authorityRepository, CacheManager cacheManager) {
 		this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
 		this.authorityRepository = authorityRepository;
+        this.cacheManager = cacheManager;
 	}
 
 	public Optional<User> getUserWithAuthorities() {
@@ -53,7 +56,7 @@ public class UserService {
         authorityRepository.findById(AuthoritiesConstants.USER).ifPresent(authorities::add);
         newUser.setAuthorities(authorities);
         userRepository.save(newUser);
-        //this.clearUserCaches(newUser);
+        this.clearUserCaches(newUser);
         log.debug("Created Information for User: {}", newUser);
         return newUser;
     }
@@ -68,7 +71,7 @@ public class UserService {
                     user.setEmail(email.toLowerCase());
                 }
                 userRepository.save(user);
-                //this.clearUserCaches(user);
+                this.clearUserCaches(user);
                 log.debug("Changed Information for User: {}", user);
             });
     }
@@ -85,9 +88,12 @@ public class UserService {
                 String encryptedPassword = passwordEncoder.encode(newPassword);
                 user.setPassword(encryptedPassword);
                 userRepository.save(user);
-                //this.clearUserCaches(user);
+                this.clearUserCaches(user);
                 log.debug("Changed password for User: {}", user);
             });
     }
 
+    private void clearUserCaches(User user) {
+        Objects.requireNonNull(cacheManager.getCache(UserRepository.USERS_BY_EMAIL_CACHE)).evict(user.getEmail());    
+    }
 }
