@@ -19,5 +19,10 @@ app:
         base64-secret: ${JWT_BASE64_SECRET}
         token-validity-in-seconds: 86400
         token-validity-in-seconds-for-remember-me: 2592000
+  cache:
+    redis:
+      expiration: 3600
+      server: redis://localhost:6379
+      cluster: false
   
   

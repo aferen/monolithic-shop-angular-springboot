@@ -78,6 +78,11 @@
 			<artifactId>problem-spring-web</artifactId>
  		    <version>0.27.0-RC.0</version>
 		</dependency>
+		<dependency>
+			<groupId>org.redisson</groupId>
+			<artifactId>redisson</artifactId>
+			<version>3.13.3</version>
+		</dependency>
 	</dependencies>
 
 	<build>
