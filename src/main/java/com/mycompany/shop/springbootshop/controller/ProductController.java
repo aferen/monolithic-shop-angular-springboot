@@ -13,6 +13,8 @@ import javax.validation.Valid;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -64,9 +66,14 @@ public class ProductController {
 	@GetMapping("/products/search/{parameter}")
 	public List<Product> getProductBySearchParameter(@PathVariable String parameter){
 		log.debug("REST request to get Products By Search Parameter");
-		return productSearchRepository.findBySearchParameter(parameter);
+		//return productSearchRepository.findBySearchParameter(parameter);
+		Page<Product> articleByAuthorName = productSearchRepository.findBySearchParameter(parameter,PageRequest.of(0, 10));
+		for(Product ttt : articleByAuthorName)
+		{
+			log.error("REST request to get Products By Search Parameter: {}", ttt);
 
-		//return productRepository.findBySearchParameter(parameter);
+		}
+		return productRepository.findBySearchParameter(parameter);
 	}
 
 	@PostMapping("/products")

@@ -5,3 +5,4 @@ spring:
     active: "dev"
   main:
     banner-mode: "off"
+    allow-bean-definition-overriding: true
