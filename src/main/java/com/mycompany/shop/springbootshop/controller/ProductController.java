@@ -3,6 +3,7 @@ package com.mycompany.shop.springbootshop.controller;
 import com.mycompany.shop.springbootshop.controller.exception.BadRequestException;
 import com.mycompany.shop.springbootshop.controller.exception.NotFoundException;
 import com.mycompany.shop.springbootshop.repository.ProductRepository;
+import com.mycompany.shop.springbootshop.repository.search.ProductSearchRepository;
 import com.mycompany.shop.springbootshop.domain.Product;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -23,8 +24,11 @@ public class ProductController {
 
 	private final ProductRepository productRepository;
 
-	public ProductController(ProductRepository productRepository) {
+	private final ProductSearchRepository productSearchRepository;
+
+	public ProductController(ProductRepository productRepository, ProductSearchRepository productSearchRepository) {
 		this.productRepository = productRepository;
+		this.productSearchRepository = productSearchRepository;
 	}
 
 	@GetMapping("/products")
@@ -60,7 +64,9 @@ public class ProductController {
 	@GetMapping("/products/search/{parameter}")
 	public List<Product> getProductBySearchParameter(@PathVariable String parameter){
 		log.debug("REST request to get Products By Search Parameter");
-		return productRepository.findBySearchParameter(parameter);
+		return productSearchRepository.findBySearchParameter(parameter);
+
+		//return productRepository.findBySearchParameter(parameter);
 	}
 
 	@PostMapping("/products")

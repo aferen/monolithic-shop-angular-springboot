@@ -27,6 +27,10 @@ app:
       connectionPoolSize: 64
       connectionMinimumIdleSize: 10
       subscriptionConnectionPoolSize: 50
+  search:
+    elasticsearch:
+      server: localhost:9200
+    
 
   
   
