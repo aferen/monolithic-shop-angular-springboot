@@ -1,0 +1,22 @@
+version: '3.2'
+services:
+  mongodb:
+    extends:
+      file: mongodb.yml
+      service: mongodb
+  redis:
+    extends:
+      file: redis.yml
+      service: redis
+  elasticsearch:
+    extends:
+      file: elasticsearch.yml
+      service: elasticsearch
+  logstash:
+    extends:
+      file: logstash.yml
+      service: logstash
+
+volumes:
+  shop-elasticsearch-volume:
+  shop-mongodb-volume:

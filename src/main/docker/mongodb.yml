@@ -1,0 +1,11 @@
+version: '3.2'
+services:
+  mongodb:
+    build:
+      context: mongodb/
+    container_name: shop-mongodb
+    ports:
+      - '27017:27017'
+    volumes:
+      - shop-mongodb-volume:/data/db/
+
