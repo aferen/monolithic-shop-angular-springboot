@@ -66,14 +66,11 @@ public class ProductController {
 	@GetMapping("/products/search/{parameter}")
 	public List<Product> getProductBySearchParameter(@PathVariable String parameter){
 		log.debug("REST request to get Products By Search Parameter");
-		//return productSearchRepository.findBySearchParameter(parameter);
-		Page<Product> articleByAuthorName = productSearchRepository.findBySearchParameter(parameter,PageRequest.of(0, 10));
-		for(Product ttt : articleByAuthorName)
-		{
-			log.error("REST request to get Products By Search Parameter: {}", ttt);
-
+		List<Product> products= productSearchRepository.findAllByNameStartsWith(parameter);
+		for (Product product : products) {
+			product.setId(product.getElasticProductId());
 		}
-		return productRepository.findBySearchParameter(parameter);
+		return products;
 	}
 
 	@PostMapping("/products")

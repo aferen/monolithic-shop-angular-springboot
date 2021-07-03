@@ -8,7 +8,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
 @Document(collection = "products")
-@org.springframework.data.elasticsearch.annotations.Document(indexName = "products")
+@org.springframework.data.elasticsearch.annotations.Document(indexName = "mongodb_products")
 public class Product implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -50,6 +50,8 @@ public class Product implements Serializable {
 
 	@Field("sale")
 	private boolean sale;
+
+	private String elasticProductId;
 
 	public String getId() {
 		return id;
@@ -145,6 +147,14 @@ public class Product implements Serializable {
 
 	public void setSale(boolean sale) {
 		this.sale = sale;
+	}
+
+	public String getElasticProductId() {
+		return elasticProductId;
+	}
+
+	public void setElasticProductId(String elasticProductId) {
+		this.elasticProductId = elasticProductId;
 	}
 
 	@Override

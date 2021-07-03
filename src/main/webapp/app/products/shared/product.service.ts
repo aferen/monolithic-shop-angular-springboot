@@ -110,7 +110,8 @@ export class ProductService {
     const url = `${this.productsFindUrl}/${term}`;
     return this.http.get<Product[]>(SERVER_API_URL + url).pipe(
       map((products) => {
-        return this.setImagesUrl(products);
+        console.log(products)
+        return products;
       }),
       catchError(this.handleError<Product[]>(`findProducts`))
     );

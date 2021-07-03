@@ -13,7 +13,7 @@ public class ElasticsearchConfiguration {
     @Bean
     public RestHighLevelClient client() {
         ClientConfiguration clientConfiguration = ClientConfiguration.builder()
-            .connectedTo("localhost:9200") //TODO: get url from application.yml
+            .connectedTo("localhost:9200").withBasicAuth("elastic", "passw@rd") //TODO: get url from application.yml
             .build();
 
         return RestClients.create(clientConfiguration).rest();
